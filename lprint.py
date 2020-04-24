@@ -1,7 +1,7 @@
 import sys
 import time
 
-def eprint(*args, **kwargs):
+def lprint(*args, **kwargs):
     if len(args) == 0:
         return
 
