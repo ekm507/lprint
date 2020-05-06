@@ -6,7 +6,7 @@ class printer:
     """This class provides you with print function and some other options
     """
 
-    def __init__(self, file=None, function='default'):
+    def __init__(self, file=None, function='default', separator=' '):
         # check if you are to write to a file also
         if file == None:
             self.logmode = False
@@ -21,6 +21,9 @@ class printer:
             self.head_function = head_default
             self.tail_function = tail_default
             self.text_function = text_default
+        
+        # set separator string
+        self.separator = separator
 
     # print initials
     def print_head(self):
@@ -33,20 +36,20 @@ class printer:
         self.tail_function()
     
     # print main text body
-    def print_text(self, *args):
+    def print_text(self, args):
         """prints only the text body without head or tail"""
-        self.text_function(args)
+        self.text_function(args, seperator=self.separator)
 
     # main function
     # prints anything you give it in a formatted way
     def print(self, *args):
         """print anything in formatted mode"""
         # print the initials first
-        self.head_function()
+        self.print_head()
         # then the main text
-        self.text_function(args)
+        self.print_text(args)
         # finally print the endings
-        self.tail_function()
+        self.print_tail()
 
 # default head print function for printer
 def head_default():
@@ -75,17 +78,17 @@ def tail_default():
     sys.stdout.write('\n')
 
 # default text body print function for printer
-def text_default(args):
+def text_default(args, seperator=' '):
     # generate a printable text based on args
     text = ''
     for value in args:
         # if value is string, it should be printed directly
         if isinstance(value, str):
-            text += value + ' '
+            text += value + seperator
         else:
             # otherwise repr function should be used
-            text += repr(value) + ' '
-    text = text[:-1]
+            text += repr(value) + seperator
+    text = text[:-len(seperator)]
     # write the generated text
     sys.stdout.write(text)
 
