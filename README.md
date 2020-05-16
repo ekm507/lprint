@@ -5,5 +5,4 @@ for easier logging of data you can use this print function instead of python bui
 ## to do
 
 * make this compatible with print funciton
-* object oriented
 * use kwargs
